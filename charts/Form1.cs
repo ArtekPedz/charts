@@ -33,30 +33,49 @@ namespace charts
 
         private void button1_Click(object sender, EventArgs e)
         {
-            UserControl1 newPolynomial = new UserControl1();
-            flowLayoutPanel.Controls.Add(newPolynomial);
-
-            newPolynomial.FunctionChanged += functionChanged;
-            functionChanged();
+                UserControl1 newPolynomial = new UserControl1();
+                flowLayoutPanel.Controls.Add(newPolynomial);
+                newPolynomial.FunctionChanged += functionChanged;
+                functionChanged();
         }
 
         private void functionChanged()
         {
             chart1.Series.Clear();
             int i = 1;
-            foreach (IFunction f in flowLayoutPanel.Controls)
+            if (radioButton1.Checked == true)
             {
-                Series s = new Series();
-                s.Name = i.ToString() + ". " + f.FunctionName;
-                i++;
-                s.ChartType = SeriesChartType.Line;
-
-                for (double x = -9.9; x <= 10; x += 0.1)
+                foreach (IFunction f in flowLayoutPanel.Controls)
                 {
-                    s.Points.AddXY(x, f.Value(x));
-                }
+                    Series s = new Series();
+                    s.Name = i.ToString() + ". " + f.FunctionName;
+                    i++;
+                    s.ChartType = SeriesChartType.Line;
 
-                chart1.Series.Add(s);
+                    for (double x = -9.9; x <= 10; x += 0.1)
+                    {
+                        s.Points.AddXY(x, f.Value(x));
+                    }
+
+                    chart1.Series.Add(s);
+                }
+            }
+            else
+            {
+                foreach (IFunction f in flowLayoutPanel.Controls)
+                {
+                    Series s = new Series();
+                    s.Name = i.ToString() + ". " + f.FunctionName2;
+                    i++;
+                    s.ChartType = SeriesChartType.Line;
+
+                    for (double x = -9.9; x <= 10; x += 0.1)
+                    {
+                        s.Points.AddXY(x, f.Value2(x));
+                    }
+
+                    chart1.Series.Add(s);
+                }
             }
             chart1.ChartAreas.First().RecalculateAxesScale();
         }

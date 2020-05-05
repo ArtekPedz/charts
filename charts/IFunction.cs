@@ -12,7 +12,12 @@ namespace charts
         {
             get;
         }
+        string FunctionName2
+        {
+            get;
+        }
         double Value(double x);
+        double Value2(double x);
         event emptyFunction FunctionChanged;
     }
     public delegate void emptyFunction();
